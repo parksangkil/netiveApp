@@ -1,0 +1,64 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle icon-only>
+      <ion-icon name='menu'></ion-icon>
+    </button>
+    <ion-title>
+      News
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+		<!--div class="wrapper" id="wrapper">
+			<div class="container" id="container">
+				<section class="wrapper_news">
+					<h1 class="tit_page">Ne<span>ws</span></h1>
+					<div class="tit_cont">
+						<strong>네티브의 다양한 경험과 소식</strong>
+						<p>
+							다년간의 경험과 지혜, 충분한 기술력과 열정은 네티브의 자랑이며, <br class="br_s34"> 프로젝트 관리에 있어서 품질관리와 리스크 관리의 노하우는 고객사의 성공을 담보할 것입니다.
+						</p>
+					</div>
+					
+					<ul class="list_news ui_acco" id="newsList">
+                        <li class="ui_wrap" *ngFor="let news of newsList">
+                            <div class="ui_btn_wrap">
+                                <strong class="ui_tit">{{news.subject}}</strong>
+                                <a href="#news_{{news.id}}" title="{{news.subject}}" class="view ui_btn"><span class="en">Detail View</span></a>
+                            </div>
+                            
+                            <div class="wrapper_conts">
+                                <div class="date">
+                                    {{news.date}}<span class="day">{{news.day}}</span>
+                                </div>
+                                <div class="cont">
+                                    <h2>{{news.subject}}</h2>
+                                    <p>{{news.summary}}</p>
+                                    
+                                    <div class="cont_detail ui_pnl" id="news_{{news.id}}">
+                                        {{news.content}}
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+					</ul>
+                    
+				</section>
+			</div -->
+	<!--ion-list inset>
+	<ion-item *ngFor="let news of newsList" (click)="itemSelected(news)">
+		{{news.subject}}
+	</ion-item>
+	</ion-list-->
+
+	<ion-card>
+		<ion-card-header>
+			뉴스 
+		</ion-card-header>
+		<button ion-item *ngFor="let news of newsList" (click)="openModal(news)">
+			<ion-icon name="clipboard" item-left></ion-icon>
+			{{news.subject}}
+		</button> 
+	</ion-card>
+</ion-content>

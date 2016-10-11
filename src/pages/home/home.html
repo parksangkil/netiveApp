@@ -1,0 +1,82 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle icon-only>
+      <ion-icon name='menu'></ion-icon>
+    </button>
+    <ion-title>Home</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="card-background-page">
+  <ion-card *ngFor="let works of worksList" (click)="openModal(works)">
+    <img src="http://www.netive.co.kr/netiveadmin/data/file/portfolio/{{works.filename}}"/>
+    <div class="card-title">{{works.subject}}</div>
+  </ion-card>
+
+  <div class="wrapper" id="wrapper">
+     <section class="main_sec_2">
+      <h1>사람들의 행복하고 <br class="br_s12">편리한 삶에 대해 연구합니다.</h1>
+      <p>다년간의 경험과 기술축적을 바탕으로 사람들의 생활에 <br class="br_s1">긍정적 변화를 이끕니다. <br class="br_s2">지속적으로 사람들을 관찰하고 <br class="br_s1">연구하여 <br class="br_s4"><br class="br_s3">더 많은 사람들이 삶의 변화를 느끼고, <br class="br_s12">누릴 수 있도록 끊임없이 노력하겠습니다.</p>
+      <section class="ui_slide main_heroSlide">
+        <h1 class="ui_slide_tit">Story on NETIVE</h1>
+        <!--div class="hero_txt"><img src="http://www.netive.co.kr/front2016/img/hero_txt.png" alt="story on netive"></div-->
+        <!--div class="ui_item_wrapper">
+          <div class="ui_item_group">
+            <div class="ui_item">
+              <div class="n4" style="background-image:url(http://www.netive.co.kr/front2016/img/life_4.jpg)"><img src="http://www.netive.co.kr/front2016/img/hero_size.png" alt=""></div>
+            </div>
+            <div class="ui_item">
+              <div class="n3" style="background-image:url(http://www.netive.co.kr/front2016/img/life_3.jpg)"><img src="http://www.netive.co.kr/front2016/img/hero_size.png" alt=""></div>
+            </div>
+            <div class="ui_item">
+              <div class="n2" style="background-image:url(http://www.netive.co.kr/front2016/img/life_2.jpg)"><img src="http://www.netive.co.kr/front2016/img/hero_size.png" alt=""></div>
+            </div>
+            <div class="ui_item">
+              <div class="n1" style="background-image:url(http://www.netive.co.kr/front2016/img/life_1.jpg)"><img src="http://www.netive.co.kr/front2016/img/hero_size.png" alt=""></div>
+            </div>
+          </div>
+        </div -->
+        <ion-slides>
+          <ion-slide>
+            <img src="http://www.netive.co.kr/front2016/img/life_4.jpg" class="slide-image"/>
+          </ion-slide>
+          <ion-slide>
+            <img src="http://www.netive.co.kr/front2016/img/life_3.jpg" class="slide-image"/>
+          </ion-slide>
+          <ion-slide>
+            <img src="http://www.netive.co.kr/front2016/img/life_2.jpg" class="slide-image"/>
+          </ion-slide>
+          <ion-slide>
+            <img src="http://www.netive.co.kr/front2016/img/life_1.jpg" class="slide-image"/>
+          </ion-slide>
+        </ion-slides>
+      </section>
+      <div class="scroll_btn">
+        <button type="button" class="ui_scrollpage scroll_down"><span class="hide">SCROLL FOR MORE</span></button>
+      </div>
+    </section>
+
+    <!--section class="main_sec_3">
+      <h1>좋은 브랜드는 삶의 질을 <br class="br_s12">풍요롭게 해줍니다.</h1>
+      <p>우리는 브랜드 철학을 담아 시각적으로 <br class="br_s1">표현하고 편리하게 사용될수 있는 일을 합니다.<br> 우리는 우리의 브랜드, <br class="br_s0">그리고 우리와 함께하는 브랜드를 통해 <br class="br_s12">따뜻하고 건강한 세상을 만드는 일에 가치를 둡니다.</p>
+      <ul>
+      <li><img src="http://www.netive.co.kr/front2016/img/brand_1.jpg" alt=""><span>BONICREW</span></li>
+      <li><img src="http://www.netive.co.kr/front2016/img/brand_2.jpg" alt=""><span>5BRO</span></li>
+      <li><img src="http://www.netive.co.kr/front2016/img/brand_3.jpg" alt=""><span>2S CANDLE</span></li>
+      </ul>
+    </section-->
+
+    <ion-slides>
+      <ion-slide>
+        <img src="http://www.netive.co.kr/front2016/img/brand_1.jpg" class="slide-image"/>
+      </ion-slide>
+      <ion-slide>
+        <img src="http://www.netive.co.kr/front2016/img/brand_2.jpg" class="slide-image"/>
+      </ion-slide>
+      <ion-slide>
+        <img src="http://www.netive.co.kr/front2016/img/brand_3.jpg" class="slide-image"/>
+      </ion-slide>
+    </ion-slides>
+
+  </div>  
+</ion-content>
