@@ -1,8 +1,9 @@
+/// <reference path="../../app/underscore.d.ts" />
 import { Component } from '@angular/core';
 import { NavController, NavParams, AlertController} from 'ionic-angular';
 import { Transfer }  from 'ionic-native';
 import  {Plugins }   from '../../services/devices/plugins.service';
-//import * as _      from 'underscore';
+import * as _        from 'underscore';
 import { NgZone }    from '@angular/core';
 import { Devices }   from './devices';
 
@@ -85,7 +86,7 @@ export class UploadingPage {
             }
         }; 
         ft.onProgress(this.onProgress);
-        ft.upload(image, "http://services.dtaalbers.com/staging/pictures", options, false)
+        ft.upload(image, "http://www.netive.co.kr/api/upload.php", options, false)
         .then((result: any) => {
             this.success(result);
         }).catch((error: any) => {
