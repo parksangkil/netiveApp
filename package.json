@@ -32,7 +32,9 @@
     "cordova-plugin-whitelist",
     "cordova-plugin-splashscreen",
     "cordova-plugin-statusbar",
-    "ionic-plugin-keyboard"
+    "ionic-plugin-keyboard",
+    "ionic-plugin-image-picker",
+    "cordova-plugin-camera"
   ],
   "cordovaPlatforms": [
     "ios",
