@@ -1,11 +1,14 @@
-import {Injectable} from "@angular/core";
-import {Camera, ImagePicker} from 'ionic-native';
+import { Injectable } from "@angular/core";
+import { Camera, ImagePicker, File } from 'ionic-native';
 //import * as _ from 'underscore';
+
+declare var cordova: any;
 
 @Injectable()
 export class Plugins {
     
-    constructor() { }     
+    constructor() { 
+    }     
     
     albums = {            
         open () : Promise<any>  { 
@@ -46,4 +49,18 @@ export class Plugins {
             });
         } 
     }  
+
+    file = {
+        open() : void {
+            File.listDir(cordova.file.applicationDirectory, 'mySubFolder/mySubSubFolder').then(
+                (files) => {
+                    // do something
+                }
+                ).catch(
+                (err) => {
+                    // do something
+                }
+            );
+        }
+    }
 }

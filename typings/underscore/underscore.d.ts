@@ -1,4 +1,3 @@
-//https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/underscore/underscore.d.ts
 // Type definitions for Underscore 1.8.3
 // Project: http://underscorejs.org/
 // Definitions by: Boris Yankov <https://github.com/borisyankov/>, Josh Baldwin <https://github.com/jbaldwin/>, Christopher Currens <https://github.com/ccurrens/>

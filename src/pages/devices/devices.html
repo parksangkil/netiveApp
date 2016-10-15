@@ -13,10 +13,17 @@
         Open albums
     </button>
     <br>
-    <button dark [hidden]="images.length == 0" (click)="startUploading()">                
+    <button dark (click)="openFile()">                
+        Open File
+    </button>
+    <br>
+    <!--button dark [hidden]="images.length == 0" (click)="startUploading()">                
+        Start uploading
+    </button-->
+    <button dark (click)="startUploading()">                
         Start uploading
     </button>
-    
+
       <div class="items">
         <div *ngFor="let item of images; let i = index">
             <ion-row center  *ngIf="i % 4 === 0" > 

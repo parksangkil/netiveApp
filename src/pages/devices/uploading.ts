@@ -1,16 +1,23 @@
-/// <reference path="../../app/underscore.d.ts" />
-import { Component } from '@angular/core';
-import { NavController, NavParams, AlertController} from 'ionic-angular';
+//npm install --save @types/lodash
+//tsd install underscore --save
+//typings search lodash
+//typings install lodash --save
+//http://hack.limbicmedia.ca/using-lodash-and-underscorejs-with-ionic-2-rc0/
+import { Component, OnInit } from '@angular/core';
+import { NavController, NavParams, AlertController } from 'ionic-angular';
 import { Transfer }  from 'ionic-native';
-import  {Plugins }   from '../../services/devices/plugins.service';
-import * as _        from 'underscore';
+import { Plugins }   from '../../services/devices/plugins.service';
+import _             from 'lodash'
 import { NgZone }    from '@angular/core';
 import { Devices }   from './devices';
 
+//declare var _: UnderscoreStatic;
+
 @Component({
   templateUrl: 'uploading.html',
+  providers: [ Plugins ]
 })
-export class UploadingPage {
+export class UploadingPage implements OnInit{
     
     images: Array<string>
     
@@ -19,6 +26,10 @@ export class UploadingPage {
     total: number;
     progress: number;
     
+    ngOnInit() {
+      console.log('lodash version:', _.VERSION);
+    }
+
     constructor(private nav: NavController, 
                 private navParams: NavParams,
                 private plugins: Plugins,
@@ -37,12 +48,13 @@ export class UploadingPage {
             return;
         }      
         
-        this.total = this.images.length;   
+        this.total = this.images.length; 
         this.upload(this.images[0]);       
     }
     
     done = () : void => {
-        this.nav.setRoot(Devices);    
+        //this.nav.setRoot(Devices);   
+        this.nav.push(Devices); 
     }
     
     success = (result: any) : void => { 
@@ -52,6 +64,14 @@ export class UploadingPage {
             this.upload(this.images[this.current - 1]);
         } else {   
             this.uploading = false;
+            let alert = this.alertCtrl.create({
+                title: "파일 전송 완료",
+                subTitle: "파일 전송이 완료되었습니다.",
+                buttons: ['Ok']
+            });
+            //nav.present(alert);
+            alert.present();
+            this.done();
         }
     }
             
@@ -71,8 +91,12 @@ export class UploadingPage {
     }
     
     upload = (image: string) : void => { 
+        alert("image name :" + image);
         let ft = new Transfer();
         let filename = _.uniqueId() + ".jpg";
+
+        alert("filename : " + filename);
+
         let options = {
             fileKey: 'file',
             fileName: filename,
