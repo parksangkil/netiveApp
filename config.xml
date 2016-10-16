@@ -29,7 +29,9 @@
   <preference name="SplashScreenBackgroundColor" value="0xFFFFFFFF"/>
 
   <preference name="iosPersistentFileLocation" value="Library" />
-  <preference name="iosExtraFilesystems" value="library-nosync" />
+  <preference name="iosExtraFilesystems"       value="library-nosync" />
+  <preference name="iosPersistentFileLocation" value="Documents" />
+  <preference name="iosExtraFilesystems"       value="documents-nosync" />
   <preference name="iosPersistentFileLocation" value="Compatibility" />
 
   <preference name="AndroidPersistentFileLocation" value="Internal" />

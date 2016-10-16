@@ -13,6 +13,7 @@ import { Devices }   from './devices';
 
 //declare var _: UnderscoreStatic;
 declare var cordova: any;
+//onst fs:string = cordova.file.dataDirectory;
 declare var window;
 
 @Component({
@@ -120,7 +121,7 @@ export class UploadingPage implements OnInit{
         }); 
 
         //Google Cloud Vision Api Call Start
-        var api_key = 'AIzaSyBg24iYnHy2ysVNf06WKv7rAsYONWDMAiw';
+        var api_key = 'AIzaSyDn3jzL8PQMdoHAJmr0KFTRacwG2smF_0A';
         let me = {
                 current_image: 'img/koro-sensei.png',
                 image_description: '',
@@ -151,11 +152,22 @@ export class UploadingPage implements OnInit{
                   ]
                 };
         var file_contents = JSON.stringify(vision_api_json);
+        alert("file_contents : " + file_contents);
 
-        File.checkDir(cordova.file.dataDirectory, 'NoCloud').then(_ => alert('checkDir Success')).catch(err => alert('checkDir Failed'));
+        //File.checkDir(cordova.file.documentsDirectory, 'NoCloud').then(_ => alert('checkDir Success')).catch(err => alert('checkDir Failed'));
+
+        File.createFile(cordova.file.documentsDirectory, 'file.json', true ).then(function(result) {
+            // Success!
+            //alert('file created.');
+            //alert(JSON.stringify(result));
+        }, function(err) {
+            // An error occured. Show a message to the user
+            //alert('file writed');
+            //alert(JSON.stringify(err));
+        });
 
         File.writeFile(
-                    cordova.file.dataDirectory,
+                    cordova.file.documentsDirectory,
                     'file.json',
                     file_contents,
                     true
@@ -167,22 +179,22 @@ export class UploadingPage implements OnInit{
                     options.headers = headers;
 
                     var server = 'https://vision.googleapis.com/v1/images:annotate?key=' + api_key;
-                    //var filePath = cordova.file.applicationStorageDirectory + 'file.json';
-                    var filePath = cordova.file.dataDirectory + 'file.json';
+                    var filePath = cordova.file.documentsDirectory + 'file.json';
 
-                    ft.upload(server, filePath, options, true)
+                    ft.upload(filePath, server, options, true)
                         .then(function(result){
 
                             var res = JSON.parse(result.response);
                             var key = me.detection_types[me.detection_type] + 'Annotations';
 
                             me.image_description = res.responses[0][key][0].description;
-                            alert(me.image_description);
+                            alert("image_description : " + me.image_description);
                       }, function(err){
-                        alert('An error occurred while uploading the file');
+                        //alert('An error occurred while uploading the file');
+                         alert('Google Cloud Vision API Call Error : ' + alert(JSON.stringify(err)) );
                       });
                 }, function(err){
-                    alert('파일 쓰기 오류 발생 : ');
+                    alert('파일 쓰기 오류 발생 : ' + (<Error>err).message);
                 });
         //Google Cloud Vision Api Call End
 
