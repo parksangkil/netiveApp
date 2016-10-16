@@ -27,6 +27,14 @@
   <preference name="FadeSplashScreen" value="false"/>
   <preference name="FadeSplashScreenDuration" value="0"/>
   <preference name="SplashScreenBackgroundColor" value="0xFFFFFFFF"/>
+
+  <preference name="iosPersistentFileLocation" value="Library" />
+  <preference name="iosExtraFilesystems" value="library-nosync" />
+  <preference name="iosPersistentFileLocation" value="Compatibility" />
+
+  <preference name="AndroidPersistentFileLocation" value="Internal" />
+  <preference name="AndroidPersistentFileLocation" value="Compatibility" />
+
   <feature name="StatusBar">
     <param name="ios-package" onload="true" value="CDVStatusBar"/>
   </feature>

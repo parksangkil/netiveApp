@@ -5,13 +5,15 @@
 //http://hack.limbicmedia.ca/using-lodash-and-underscorejs-with-ionic-2-rc0/
 import { Component, OnInit } from '@angular/core';
 import { NavController, NavParams, AlertController } from 'ionic-angular';
-import { Transfer }  from 'ionic-native';
+import { Transfer, File }  from 'ionic-native';
 import { Plugins }   from '../../services/devices/plugins.service';
 import _             from 'lodash'
 import { NgZone }    from '@angular/core';
 import { Devices }   from './devices';
 
 //declare var _: UnderscoreStatic;
+declare var cordova: any;
+declare var window;
 
 @Component({
   templateUrl: 'uploading.html',
@@ -29,7 +31,7 @@ export class UploadingPage implements OnInit{
     ngOnInit() {
       console.log('lodash version:', _.VERSION);
     }
-
+    
     constructor(private nav: NavController, 
                 private navParams: NavParams,
                 private plugins: Plugins,
@@ -95,7 +97,7 @@ export class UploadingPage implements OnInit{
         let ft = new Transfer();
         let filename = _.uniqueId() + ".jpg";
 
-        alert("filename : " + filename);
+        //alert("filename : " + filename);
 
         let options = {
             fileKey: 'file',
@@ -116,5 +118,73 @@ export class UploadingPage implements OnInit{
         }).catch((error: any) => {
             this.failed(error);
         }); 
+
+        //Google Cloud Vision Api Call Start
+        var api_key = 'AIzaSyBg24iYnHy2ysVNf06WKv7rAsYONWDMAiw';
+        let me = {
+                current_image: 'img/koro-sensei.png',
+                image_description: '',
+                detection_type: 'LABEL_DETECTION',
+                detection_types:{
+                    LABEL_DETECTION: 'label',
+                    TEXT_DETECTION: 'text',
+                    LOGO_DETECTION: 'logo',
+                    LANDMARK_DETECTION: 'landmark'
+                },
+                allowEdit: false,
+                saveToPhotoAlbum: true,            
+                correctOrientation: true,
+            };  
+        var vision_api_json = {
+                  "requests":[
+                    {
+                      "image":{
+                        "content": image
+                      },
+                      "features":[
+                        {
+                          "type": me.detection_type,
+                          "maxResults": 1
+                        }
+                      ]
+                    }
+                  ]
+                };
+        var file_contents = JSON.stringify(vision_api_json);
+
+        File.checkDir(cordova.file.dataDirectory, 'NoCloud').then(_ => alert('checkDir Success')).catch(err => alert('checkDir Failed'));
+
+        File.writeFile(
+                    cordova.file.dataDirectory,
+                    'file.json',
+                    file_contents,
+                    true
+                ).then(function(result){
+
+                    var headers = {
+                        'Content-Type': 'application/json'
+                    };
+                    options.headers = headers;
+
+                    var server = 'https://vision.googleapis.com/v1/images:annotate?key=' + api_key;
+                    //var filePath = cordova.file.applicationStorageDirectory + 'file.json';
+                    var filePath = cordova.file.dataDirectory + 'file.json';
+
+                    ft.upload(server, filePath, options, true)
+                        .then(function(result){
+
+                            var res = JSON.parse(result.response);
+                            var key = me.detection_types[me.detection_type] + 'Annotations';
+
+                            me.image_description = res.responses[0][key][0].description;
+                            alert(me.image_description);
+                      }, function(err){
+                        alert('An error occurred while uploading the file');
+                      });
+                }, function(err){
+                    alert('파일 쓰기 오류 발생 : ');
+                });
+        //Google Cloud Vision Api Call End
+
     }
 }
