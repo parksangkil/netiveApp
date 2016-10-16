@@ -39,6 +39,7 @@ export class Plugins {
                 correctOrientation: true,
             };        
             return Camera.getPicture(options).then((imgUrl) => {
+                let base64Image = 'data:image/jpeg;base64,' + imgUrl;
                 return imgUrl;
             }, (err) => {                
                 if(err.error == "cordova_not_available") {
