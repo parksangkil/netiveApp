@@ -4,25 +4,29 @@
 
 <ion-content padding class="devices">
     Select / Take some pictures
-    <br>
-    <button dark (click)="openCamera()">                
-        Open camera
+    <br><br><br>
+    <button dark (click)="openCamera(1)">                
+        Open camera(파일 업로드)
     </button>
-    <br>
+    <br><br><br>
+    <button dark (click)="openCamera(0)">                
+        Open camera(OCR)
+    </button>
+    <br><br><br>
     <button dark (click)="openAlbums()">                
         Open albums
     </button>
-    <br>
+    <br><br><br>
     <button dark (click)="openFile()">                
         Open File
     </button>
-    <br>
-    <!--button dark [hidden]="images.length == 0" (click)="startUploading()">                
-        Start uploading
-    </button-->
-    <button dark (click)="startUploading()">                
+    <br><br><br><br>
+    <button dark [hidden]="images.length == 0" (click)="startUploading()">                
         Start uploading
     </button>
+
+     <!--img [src]="_DomSanitizationService.bypassSecurityTrustUrl(cameraData)" *ngIf="photoTaken"-->
+     <img src="{{ cameraData }}" *ngIf="photoTaken"/>
 
       <div class="items">
         <div *ngFor="let item of images; let i = index">

@@ -94,7 +94,7 @@ export class UploadingPage implements OnInit{
     }
     
     upload = (image: string) : void => { 
-        alert("image name :" + image);
+        //alert("image name :" + image);
         let ft = new Transfer();
         let filename = _.uniqueId() + ".jpg";
 
@@ -123,9 +123,9 @@ export class UploadingPage implements OnInit{
         //Google Cloud Vision Api Call Start
         var api_key = 'AIzaSyDn3jzL8PQMdoHAJmr0KFTRacwG2smF_0A';
         let me = {
-                current_image: 'img/koro-sensei.png',
+                current_image: image,
                 image_description: '',
-                detection_type: 'LABEL_DETECTION',
+                detection_type: 'TEXT_DETECTION',
                 detection_types:{
                     LABEL_DETECTION: 'label',
                     TEXT_DETECTION: 'text',
@@ -136,6 +136,10 @@ export class UploadingPage implements OnInit{
                 saveToPhotoAlbum: true,            
                 correctOrientation: true,
             };  
+
+        me.current_image = "data:image/jpeg;base64," + image;
+        me.image_description = '';
+
         var vision_api_json = {
                   "requests":[
                     {
@@ -144,7 +148,7 @@ export class UploadingPage implements OnInit{
                       },
                       "features":[
                         {
-                          "type": me.detection_type,
+                          "type": "TEXT_DETECTION",
                           "maxResults": 1
                         }
                       ]
@@ -152,7 +156,7 @@ export class UploadingPage implements OnInit{
                   ]
                 };
         var file_contents = JSON.stringify(vision_api_json);
-        alert("file_contents : " + file_contents);
+        //alert("file_contents : " + file_contents);
 
         //File.checkDir(cordova.file.documentsDirectory, 'NoCloud').then(_ => alert('checkDir Success')).catch(err => alert('checkDir Failed'));
 

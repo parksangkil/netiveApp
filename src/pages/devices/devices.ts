@@ -5,18 +5,25 @@ import { Plugins }       from '../../services/devices/plugins.service';
 import { UploadingPage } from './uploading';
 import { Transfer }      from 'ionic-native';
 
+import { __platform_browser_private__, 
+         SafeResourceUrl, 
+         DomSanitizer } from '@angular/platform-browser';
+
 declare var cordova: any;
 
 @Component({
   templateUrl: 'devices.html',
-  providers: [ Plugins ]
+  providers: [ Plugins, __platform_browser_private__.BROWSER_SANITIZATION_PROVIDERS ]
 })
 export class Devices {
     images: Array<string> = [];
+    cameraData: string;
+    photoTaken: boolean;
 
     constructor(private plugins: Plugins,
                 private platform: Platform,
-                private nav: NavController) { }
+                private nav: NavController,
+                private _DomSanitizationService: DomSanitizer) { }
 
     openAlbums = () : void => {
         this.plugins.albums.open().then((imgUrls) => {            
@@ -28,8 +35,10 @@ export class Devices {
         });        
     }
       
-    openCamera = () : void => { 
-        this.plugins.camera.open().then((imageUrl) => { 
+    openCamera = (type:number) : void => { 
+        this.plugins.camera.open(type).then((imageUrl) => { 
+            this.cameraData = 'data:image/jpeg;base64,' + imageUrl;
+            this.photoTaken = true;
           if(imageUrl) {
             this.images.push(imageUrl);            
           }

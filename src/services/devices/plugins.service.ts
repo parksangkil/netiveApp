@@ -28,9 +28,9 @@ export class Plugins {
     }
     
     camera = {       
-        open () : Promise<any>  {
+        open (type:number) : Promise<any>  {
             let options = {
-                destinationType: 1,
+                destinationType: type, //0 : Return image as base64-encoded string, 1 : Return image file URI
                 sourceType: 1,
                 encodingType: 0,
                 quality:100,
@@ -38,9 +38,9 @@ export class Plugins {
                 saveToPhotoAlbum: true,            
                 correctOrientation: true,
             };        
-            return Camera.getPicture(options).then((imgUrl) => {
-                let base64Image = 'data:image/jpeg;base64,' + imgUrl;
-                return imgUrl;
+            return Camera.getPicture(options).then((imageData) => {
+                //let base64Image = 'data:image/jpeg;base64,' + imgUrl;
+                return imageData;
             }, (err) => {                
                 if(err.error == "cordova_not_available") {
                     alert("Cordova is not available, please make sure you have your app deployed on a simulator or device");            

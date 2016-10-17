@@ -36,7 +36,8 @@
     "cordova-plugin-camera",
     "cordova-plugin-file-opener2",
     "cordova-plugin-file-transfer",
-    "cordova-plugin-file"
+    "cordova-plugin-file",
+    "cordova-base64-to-gallery"
   ],
   "cordovaPlatforms": [
     "ios",
