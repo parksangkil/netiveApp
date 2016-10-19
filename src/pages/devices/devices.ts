@@ -36,21 +36,84 @@ export class Devices {
     }
 
     openOcrAlbums = () : void => {
-        this.plugins.albumsOcr.open().then((imgData) => {  
-            this.getImageBase64String(imgData).then(
+        this.plugins.albums.open().then((imgUrl) => { 
+
+            this.getImageBase64String(imgUrl[0]).then(
                     (image: string) => {
-                        alert("getImageBase64String : " + image.substring(0, 100));
+                        //alert("getImageBase64String : " + image.substring(23, image.length));
+                        this.photoTaken = true;
+                        this.cameraData = image;
+                        this.images.push(image.substring(23, image.length));     
+                    }
+                ).catch((error: any) => {
+                    alert(error);
+                }); ; 
+
+            /*this.getFileContentAsBase64(imgUrl[0],function(base64Image){
+                 alert("getFileContentAsBase64 : " + base64Image.substring(0, 100));
+                this.photoTaken = true;
+                this.cameraData = base64Image;
+                this.images.push(base64Image);    
+            });*/
+
+            /*this.getFileContentAsBase64Promise(imgUrl[0]).then(
+                    (image: string) => {
+                        alert("getFileContentAsBase64Promise : " + image.substring(0, 100));
                         this.photoTaken = true;
                         this.cameraData = image;
                         this.images.push(image);     
                     }
                 ).catch((error: any) => {
                     alert(error);
-                }); ;
+                }); ; */
+
             /*if(imgData) {
                 this.images.push(imgData);            
             }*/
+
         });   
+    }
+
+   getFileContentAsBase64(path,callback){
+        window.resolveLocalFileSystemURL(path, gotFile, fail);
+                
+        function fail(e) {
+            alert('Cannot found requested file');
+        }
+
+        function gotFile(fileEntry) {
+            fileEntry.file(function(file) {
+                var reader = new FileReader();
+                reader.onloadend = function(e) {
+                    var content = this.result;
+                    callback(content);
+                };
+                // The most important point, use the readAsDatURL Method from the file plugin
+                reader.readAsDataURL(file);
+            });
+        }
+    }
+
+   getFileContentAsBase64Promise(path: string){
+        return new Promise( (resolve, reject) => {
+            window.resolveLocalFileSystemURL(path, gotFile, fail);
+                    
+            function fail(e) {
+                alert('Cannot found requested file');
+            }
+
+            function gotFile(fileEntry) {
+                fileEntry.file(function(file) {
+                    var reader = new FileReader();
+                    reader.onloadend = function(e) {
+                        var content = this.result;
+                        resolve(content);
+                    };
+                    // The most important point, use the readAsDatURL Method from the file plugin
+                    reader.readAsDataURL(file);
+                });
+            }
+        });
     }
 
     getImageBase64String(url: string) {

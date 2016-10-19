@@ -87,14 +87,14 @@ export class UploadingPage implements OnInit{
         this.ngZone.run(() => {
             if (progressEvent.lengthComputable) {
                 let progress = Math.round((progressEvent.loaded / progressEvent.total) * 100);
-                console.log(progress);
+                //console.log(progress);
                 this.progress = progress      
             }
         });
     }
     
     upload = (image: string) : void => { 
-        //alert("image name :" + image);
+        //alert("upload image name :" + image);
         let ft = new Transfer();
         let filename = _.uniqueId() + ".jpg";
 
@@ -112,13 +112,13 @@ export class UploadingPage implements OnInit{
                 fileName: filename
             }
         }; 
-        ft.onProgress(this.onProgress);
-        ft.upload(image, "http://www.netive.co.kr/api/upload.php", options, false)
+        //ft.onProgress(this.onProgress);
+        /*ft.upload(image, "http://www.netive.co.kr/api/upload.php", options, false)
         .then((result: any) => {
             this.success(result);
         }).catch((error: any) => {
             this.failed(error);
-        }); 
+        });*/
 
         //Google Cloud Vision Api Call Start
         var api_key = 'AIzaSyDn3jzL8PQMdoHAJmr0KFTRacwG2smF_0A';
@@ -167,7 +167,7 @@ export class UploadingPage implements OnInit{
         }, function(err) {
             // An error occured. Show a message to the user
             //alert('file writed');
-            //alert(JSON.stringify(err));
+            alert(JSON.stringify(err));
         });
 
         File.writeFile(
@@ -176,7 +176,7 @@ export class UploadingPage implements OnInit{
                     file_contents,
                     true
                 ).then(function(result){
-
+                    
                     var headers = {
                         'Content-Type': 'application/json'
                     };
@@ -185,23 +185,25 @@ export class UploadingPage implements OnInit{
                     var server = 'https://vision.googleapis.com/v1/images:annotate?key=' + api_key;
                     var filePath = cordova.file.documentsDirectory + 'file.json';
 
+//alert('file writed => ' + filePath);
+
                     ft.upload(filePath, server, options, true)
                         .then(function(result){
 
                             var res = JSON.parse(result.response);
                             //var key = me.detection_types[me.detection_type] + 'Annotations';
                             
-                            var key =  'text Annotations';
+                            var key =  'textAnnotations';
 
                             //me.image_description = res.responses[0][key][0].description;
-                            alert("image_description : " + res.responses[0][key][0].description.substring(0, 100));
+                            alert("image_description : " + res.responses[0][key][0].description);
                       }, function(err){
                         //alert('An error occurred while uploading the file');
-                         alert('Google Cloud Vision API Call Error : ' + alert(JSON.stringify(err)) );
+                         alert('Google Cloud Vision API Call Error : ' );
                       });
                 }, function(err){
-                    //alert('파일 쓰기 오류 발생 : ' + (<Error>err).message);
-                    alert(' Vision API 파일 전송 오류 발생 ');
+                    alert('파일 쓰기 오류 발생 : ' + (<Error>err).message);
+                    //alert(' Vision API 파일 전송 오류 발생 ');
                 });
         //Google Cloud Vision Api Call End
 
