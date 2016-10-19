@@ -122,7 +122,7 @@ export class UploadingPage implements OnInit{
 
         //Google Cloud Vision Api Call Start
         var api_key = 'AIzaSyDn3jzL8PQMdoHAJmr0KFTRacwG2smF_0A';
-        let me = {
+        /*let me = {
                 current_image: image,
                 image_description: '',
                 detection_type: 'TEXT_DETECTION',
@@ -135,10 +135,10 @@ export class UploadingPage implements OnInit{
                 allowEdit: false,
                 saveToPhotoAlbum: true,            
                 correctOrientation: true,
-            };  
+            }; */ 
 
-        me.current_image = "data:image/jpeg;base64," + image;
-        me.image_description = '';
+        //me.current_image = "data:image/jpeg;base64," + image;
+        //me.image_description = '';
 
         var vision_api_json = {
                   "requests":[
@@ -189,16 +189,19 @@ export class UploadingPage implements OnInit{
                         .then(function(result){
 
                             var res = JSON.parse(result.response);
-                            var key = me.detection_types[me.detection_type] + 'Annotations';
+                            //var key = me.detection_types[me.detection_type] + 'Annotations';
+                            
+                            var key =  'text Annotations';
 
-                            me.image_description = res.responses[0][key][0].description;
-                            alert("image_description : " + me.image_description);
+                            //me.image_description = res.responses[0][key][0].description;
+                            alert("image_description : " + res.responses[0][key][0].description.substring(0, 100));
                       }, function(err){
                         //alert('An error occurred while uploading the file');
                          alert('Google Cloud Vision API Call Error : ' + alert(JSON.stringify(err)) );
                       });
                 }, function(err){
-                    alert('파일 쓰기 오류 발생 : ' + (<Error>err).message);
+                    //alert('파일 쓰기 오류 발생 : ' + (<Error>err).message);
+                    alert(' Vision API 파일 전송 오류 발생 ');
                 });
         //Google Cloud Vision Api Call End
 

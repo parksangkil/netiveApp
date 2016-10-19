@@ -34,7 +34,59 @@ export class Devices {
             }); 
         });        
     }
-      
+
+    openOcrAlbums = () : void => {
+        this.plugins.albumsOcr.open().then((imgData) => {  
+            this.getImageBase64String(imgData).then(
+                    (image: string) => {
+                        alert("getImageBase64String : " + image.substring(0, 100));
+                        this.photoTaken = true;
+                        this.cameraData = image;
+                        this.images.push(image);     
+                    }
+                ).catch((error: any) => {
+                    alert(error);
+                }); ;
+            /*if(imgData) {
+                this.images.push(imgData);            
+            }*/
+        });   
+    }
+
+    getImageBase64String(url: string) {
+        return new Promise( (resolve, reject) => {
+
+            // Convert image to base64 string
+            //var canvas: HTMLCanvasElement = document.createElement('CANVAS'),
+            //var canvas = <HTMLCanvasElement> document.getElementById("mycanvas");
+            var canvas : any = document.createElement('CANVAS');
+            //var canvas: HTMLCanvasElement = $(element).find('canvas').get(0);
+
+            var ctx = canvas.getContext('2d'), img = new Image;
+
+            img.crossOrigin = 'Anonymous';
+
+            img.onload = () => {
+                var dataURL: any = null;
+                canvas.height = img.height;
+                canvas.width = img.width;
+                ctx.drawImage(img, 0, 0);
+
+                // set image quality
+                dataURL = canvas.toDataURL('image/jpeg', 0.9);
+                canvas = null;
+                resolve(dataURL);
+            };
+
+            img.onerror = (err) => {
+                reject(err);
+            };
+
+            img.src = url;
+        });
+
+    }
+
     openCamera = (type:number) : void => { 
         this.plugins.camera.open(type).then((imageUrl) => { 
             this.cameraData = 'data:image/jpeg;base64,' + imageUrl;

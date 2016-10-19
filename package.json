@@ -37,7 +37,8 @@
     "cordova-plugin-file-opener2",
     "cordova-plugin-file-transfer",
     "cordova-plugin-file",
-    "cordova-base64-to-gallery"
+    "cordova-base64-to-gallery",
+    "com-badrit-base64"
   ],
   "cordovaPlatforms": [
     "ios",
