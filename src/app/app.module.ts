@@ -1,15 +1,17 @@
-import { NgModule } from '@angular/core';
-import { IonicApp, IonicModule } from 'ionic-angular';
-import { MyApp } from './app.component';
-import { AboutPage } from '../pages/about/about';
-import { ContactPage } from '../pages/contact/contact';
-import { HomePage } from '../pages/home/home';
-import { HomeContentPage } from '../pages/home/workDetail';
+import { NgModule }                           from '@angular/core';
+import { IonicApp, IonicModule }              from 'ionic-angular';
+import { MyApp }                              from './app.component';
+import { AboutPage }                          from '../pages/about/about';
+import { ContactPage }                        from '../pages/contact/contact';
+import { HomePage }                           from '../pages/home/home';
+import { HomeContentPage }                    from '../pages/home/workDetail';
 import { NewsListComponent, NewsContentPage } from '../pages/news/news';
-import { TabsPage } from '../pages/tabs/tabs';
+import { TabsPage }                           from '../pages/tabs/tabs';
 
-import { Devices } from '../pages/devices/devices';
-import { UploadingPage }     from '../pages/devices/uploading';
+import { Devices }                            from '../pages/devices/devices';
+import { UploadingPage }                      from '../pages/devices/uploading';
+
+import { DaumMapPage }                        from '../pages/daumMap/daumMap';
 
 @NgModule({
   declarations: [
@@ -22,7 +24,8 @@ import { UploadingPage }     from '../pages/devices/uploading';
     NewsContentPage,
     TabsPage,
     Devices,
-    UploadingPage
+    UploadingPage,
+    DaumMapPage
   ],
   imports: [
     IonicModule.forRoot(MyApp)
@@ -38,7 +41,8 @@ import { UploadingPage }     from '../pages/devices/uploading';
     NewsContentPage,
     TabsPage,
     Devices,
-    UploadingPage
+    UploadingPage,
+    DaumMapPage
   ],
   providers: []
 })

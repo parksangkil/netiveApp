@@ -10,6 +10,7 @@ import { NewsListComponent } from '../pages/news/news';
 import { ContactPage }       from '../pages/contact/contact';
 
 import { Devices }           from '../pages/devices/devices';
+import { DaumMapPage }       from '../pages/daumMap/daumMap';
 
 @Component({
   //template: `<ion-nav [root]="rootPage"></ion-nav>`
@@ -25,11 +26,12 @@ export class MyApp {
   constructor(platform: Platform, private menu: MenuController) {
     this.menu = menu;
     this.pages = [
-        { title: 'Home',    component: HomePage },
-        { title: 'Works',   component: AboutPage },
-        { title: 'News',    component: NewsListComponent },
-        { title: 'Contact', component: ContactPage },
-        { title: 'Devices', component: Devices }
+        { title: 'Home',     component: HomePage },
+        { title: 'Works',    component: AboutPage },
+        { title: 'News',     component: NewsListComponent },
+        { title: 'Contact',  component: ContactPage },
+        { title: 'Devices',  component: Devices },
+        { title: 'Daum Map', component: DaumMapPage }
     ];
     this.rootPage = TabsPage;
 

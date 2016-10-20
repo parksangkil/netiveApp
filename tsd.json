@@ -73,6 +73,9 @@
     },
     "cordova/plugins/WebSQL.d.ts": {
       "commit": "35b24575255b09ecdfdf80094b51165407790cbc"
+    },
+    "requirejs/require.d.ts": {
+      "commit": "93cd5a76d0cd1ea7c2a4968979a659a561afd112"
     }
   }
 }
