@@ -38,6 +38,8 @@
     "cordova-plugin-file-transfer",
     "cordova-plugin-file",
     "cordova-base64-to-gallery",
+    "cordova-plugin-printer",
+    "com.darktalker.cordova.screenshot",
     "com-badrit-base64"
   ],
   "cordovaPlatforms": [
