@@ -70,6 +70,39 @@ export class DaumMapPage implements AfterViewInit{
         };
         this.map = new daum.maps.Map(this.mapElement.nativeElement, options);
         
+        // 지도 타입 변경 컨트롤을 생성한다
+		var mapTypeControl = new daum.maps.MapTypeControl();
+
+		// 지도의 상단 우측에 지도 타입 변경 컨트롤을 추가한다
+		this.map.addControl(mapTypeControl, daum.maps.ControlPosition.TOPRIGHT);	
+
+		// 지도에 확대 축소 컨트롤을 생성한다
+		var zoomControl = new daum.maps.ZoomControl();
+
+		// 지도의 우측에 확대 축소 컨트롤을 추가한다
+		this.map.addControl(zoomControl, daum.maps.ControlPosition.RIGHT);
+
+        daum.maps.event.addListener(this.map, 'center_changed', function () {
+            let alert = this.alertCtrl.create({
+                        title: '중심 좌표',
+                        subTitle: 'map',
+                        message: '지도의 중심 좌표는 ' + this.map.getCenter().toString() +' 입니다.',
+                        buttons: ['OK']
+            });
+            alert.present();
+		});
+
+        // 지도 클릭 이벤트를 등록한다 (좌클릭 : click, 우클릭 : rightclick, 더블클릭 : dblclick)
+		daum.maps.event.addListener(this.map, 'click', function (mouseEvent) {
+			let alert = this.alertCtrl.create({
+                        title: '중심 좌표',
+                        subTitle: 'map',
+                        message: '지도에서 클릭한 위치의 좌표는 ' + mouseEvent.latLng.toString() + ' 입니다.',
+                        buttons: ['OK']
+            });
+            alert.present();
+		});
+
         // 지도에 마커를 생성하고 표시한다
 		var marker = new daum.maps.Marker({
 		    position: new daum.maps.LatLng(37.56710, 126.98040), // 마커의 좌표
@@ -78,7 +111,7 @@ export class DaumMapPage implements AfterViewInit{
     }
 
     ionViewWillEnter(){
-        this.reloadMap();
+        //this.reloadMap();
     }
 
     reloadMap(){
