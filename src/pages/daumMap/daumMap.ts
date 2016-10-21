@@ -82,7 +82,7 @@ export class DaumMapPage implements AfterViewInit{
 		// 지도의 우측에 확대 축소 컨트롤을 추가한다
 		this.map.addControl(zoomControl, daum.maps.ControlPosition.RIGHT);
 
-        daum.maps.event.addListener(this.map, 'center_changed', function () {
+        /*daum.maps.event.addListener(this.map, 'center_changed', function () {
             let alert = this.alertCtrl.create({
                         title: '중심 좌표',
                         subTitle: 'map',
@@ -101,7 +101,7 @@ export class DaumMapPage implements AfterViewInit{
                         buttons: ['OK']
             });
             alert.present();
-		});
+		});*/
 
         // 지도에 마커를 생성하고 표시한다
 		var marker = new daum.maps.Marker({
